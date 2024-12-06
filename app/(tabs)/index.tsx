@@ -3,6 +3,8 @@ import ImageViewer from '@/components/ImageViewer';
 import { View, StyleSheet } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
+import IconButton from '@/components/IconButton';
+import CircleButton from '@/components/CircleComponent';
 
 const PlaceHolderImage = require('../../assets/images/background-image.png');
 
@@ -25,14 +27,32 @@ export default function Index() {
     }
   }
 
+  const onReset = () => {
+    setShowAppOptions(false);
+  }
+
+  const onAddSticker = () => {
+
+  }
+
+  const onSaveImageAsync = async () => {
+
+  }
+
   return (
     <View style={styles.container}>
-      <View>
+      <View style={styles.imageContainer}>
         <ImageViewer imgSource={PlaceHolderImage} selectedImage={selectedImage} />
       </View>
 
       {showAppOptions ? (
-        <View />
+        <View style={styles.optionsContainer}>
+          <View style={styles.optionsRow}>
+            <IconButton icon="refresh" label="Reset" onPress={onReset} />
+            <CircleButton onPress={onAddSticker} />
+            <IconButton icon="save-alt" label="Save" onPress={onSaveImageAsync} />
+          </View>
+        </View>
       ) : (
         <View style={styles.footerContainer}>
           <Button theme='primary' label="Choose a photo" onPress={pickImageAsync} />
@@ -47,13 +67,23 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    /* @tutinfo Add the value of <CODE>backgroundColor</CODE> property with <CODE>'#25292e'</CODE>.*/
     backgroundColor: '#25292e',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  imageContainer: {
+    flex: 1,
+  },
   footerContainer: {
     flex: 1 / 3,
     alignItems: 'center',
-  }
+  },
+  optionsContainer: {
+    position: 'absolute',
+    bottom: 80,
+  },
+  optionsRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
 });
